@@ -170,9 +170,7 @@ class hooli {
      * @param string hashname     Name of the redis hash
      * @param string key          Redis Key
      * @param string|int value    Value to the corresponding Key
-     *
      * Method replaces a key value pair in a hash
-     *
      * @return void
      */
     public function replacehash($hashname, $key, $value) {
@@ -184,6 +182,25 @@ class hooli {
     public function checkhash($hashname, $key) {
         if ($this->redis->hExists($hashname, $key)) {
             return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * @param string $hashName  - Name of the redis hash
+     * @param string $keyToDelete - Redis Key
+     * delete a specific key from a hash
+     */
+    public function deletekeyFromHash (string $hashName, string $keyToDelete){
+        if ($this->redis->hExists($hashName, $keyToDelete)) {
+            if ($this->redis->hDel($hashName, $keyToDelete)) {
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
         }
     }
 
